@@ -8,7 +8,9 @@ URL = "http://ws.bus.go.kr/api/rest/buspos/getBusPosByRouteSt?serviceKey=ORCkFmK
 @app.get("/bus/bus1")
 def request():
     response = httpx.get(URL)
-    return {'response': response.json()}
+    return {
+        'bosung' : 'god',
+        'response': response.json()}
 
 
 @app.get("/home/{name}")
