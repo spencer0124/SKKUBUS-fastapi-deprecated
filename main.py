@@ -8,6 +8,7 @@ import asyncio
 import re
 from fastapi_utils.tasks import repeat_every
 from fastapi_utils.session import FastAPISessionMaker
+import logging
 
 
 app = FastAPI()
@@ -66,7 +67,10 @@ bus_handler_hssc = HSSCBusAPIHandler("https://kingom.skku.edu/skkuapp/getBusData
 @repeat_every(seconds=10)  # Repeat every 10 seconds
 async def periodic_update():
     await bus_handler_hssc.update_bus_data()
-    httpx.get('https://liveactivity-jongro-stationhewa-lgrkkmdl2q-uc.a.run.app')
+    try: 
+        httpx.get('https://liveactivity-jongro-stationhewa-lgrkkmdl2q-uc.a.run.app')
+    except Exception as e:
+        logging.error(f"Error in first HTTP request: {e}")
     
 
 
