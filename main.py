@@ -9,6 +9,7 @@ import re
 from fastapi_utils.tasks import repeat_every
 from fastapi_utils.session import FastAPISessionMaker
 import logging
+from typing import List, Optional
 
 
 app = FastAPI()
@@ -71,7 +72,21 @@ async def periodic_update():
         httpx.get('https://liveactivity-jongro-stationhewa-lgrkkmdl2q-uc.a.run.app')
     except Exception as e:
         logging.error(f"Error in first HTTP request: {e}")
-    
+
+@app.get("/bus/webviewlist")
+def webviewlist():
+    return {
+    'totalcount': 1,
+    'detail': {
+        'item1': {
+            'title': '설 연휴 귀향/귀경 버스',
+            'subtitle': '지역별 왕복 운영',
+            'type' : '성대',
+            'effect' : True
+        },
+    }
+}
+
 
 
 @app.get("/bus/hssc")
@@ -84,17 +99,46 @@ async def bus_hssc():
 
 
 
-
-
-
-
-
-
-
-
-
-
 ### [종로07] api
+@app.get("/bus/jongro07")
+def read_jongro07():
+    return [
+    {
+        "stationId": 101,
+        "name": "명륜새마을금고",
+        "StationMessage": "정보 없음",
+        "isFirstStation": True,
+        "isLastStation": False,
+        "isRotationStation": False,
+        "iscurrentBusLocated": False,
+        "exceedSecond": None,
+        "carnumber": None
+    },
+    {
+        "stationId": 102,
+        "name": "서울국제고등학교",
+        "StationMessage": "1개전",
+        "isFirstStation": False,
+        "isLastStation": False,
+        "isRotationStation": False,
+        "iscurrentBusLocated": True,
+        "exceedSecond": 120,
+        "carnumber": "1234AB"
+    },
+    {
+        "stationId": 110,
+        "name": "성균관대학교",
+        "StationMessage": "3개전",
+        "isFirstStation": False,
+        "isLastStation": True,
+        "isRotationStation": False,
+        "iscurrentBusLocated": False,
+        "exceedSecond": None,
+        "carnumber": None
+    }
+]
+
+
 
 
 
