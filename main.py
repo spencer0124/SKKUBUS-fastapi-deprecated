@@ -5,7 +5,13 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from pytz import timezone
 import re
-from fastapi_utils.tasks import repeat_every
+
+
+from sqlalchemy.orm import Session
+from fastapi_restful.session import FastAPISessionMaker
+from fastapi_restful.tasks import repeat_every
+
+
 import logging
 
 
