@@ -4,7 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from pytz import timezone
-import asyncio
 import re
 from fastapi_utils.tasks import repeat_every
 import logging
