@@ -7,9 +7,7 @@ from pytz import timezone
 import asyncio
 import re
 from fastapi_utils.tasks import repeat_every
-from fastapi_utils.session import FastAPISessionMaker
 import logging
-from typing import List, Optional
 
 
 app = FastAPI()
