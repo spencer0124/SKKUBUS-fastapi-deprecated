@@ -3,7 +3,7 @@ import httpx
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-import pytz
+from pytz import timezone
 import asyncio
 import re
 from fastapi_utils.tasks import repeat_every
@@ -28,7 +28,7 @@ class HSSCBusAPIHandler:
     def get_flag(self, car_number, event_date):
         if not car_number:
             return 0
-        current_time = datetime.now(pytz.timezone('Asia/Seoul'))
+        current_time = datetime.now(timezone('Asia/Seoul'))
         if event_date:
             event_time = datetime.fromisoformat(event_date)
             if (current_time - event_time).total_seconds() < 30:
@@ -64,7 +64,6 @@ class HSSCBusAPIHandler:
 bus_handler_hssc = HSSCBusAPIHandler("https://kingom.skku.edu/skkuapp/getBusData.do?route=2009&_=1685209241816")
 # bus_handler_hssc = BusAPIHandler("http://skkubus-api-test.kro.kr")
 
-@app.on_event("startup")
 @repeat_every(seconds=10)  # Repeat every 10 seconds
 async def periodic_update():
     await bus_handler_hssc.update_bus_data()
